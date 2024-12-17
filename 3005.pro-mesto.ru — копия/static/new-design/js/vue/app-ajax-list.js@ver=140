@@ -1,0 +1,98 @@
+let AppAJAXList = function () {
+
+    return new Vue({
+        el: '#app-ajax-list',
+        data: {
+            page: 1,
+            has_similar: false,
+            show_button: true,
+        },
+        mounted() {
+            console.log('AppAJAXList Mounted!')
+            console.log(this.load_content())
+        },
+        methods: {
+
+            async load_content () {
+
+                let that = this;
+                let r = $.post("/", { "app-ajax-list": true, "page": that.page })
+                r.then(function (data, status) {
+                    if (status == 'success') {
+                        $('#app-ajax-list-items').append(data.content)
+                        that.set_listeners();
+                        if (that.page >= data.page_total) {
+                            that.show_button = false;
+                        }
+                        that.page += 1;
+
+                    }
+                })
+
+            },
+            set_listeners: function () {
+                $('.card-image').unbind('click');
+                $('button.show_card').unbind('click');
+                $('.slick-popup').each(function (i, el) {
+                    if (!$(el).hasClass('slick-initialized')) {
+                        $(el).slick({
+                            lazyLoad: 'ondemand',
+                            prevArrow: '<button class="slick-prev slick-arrow flex-center" type="button"><svg class="svg-icon icon-arr_left"><use xlink:href="/static/new-design/img/symbol_sprite.svg#icon-arr_left"></use></svg></button>',
+                            nextArrow: '<button class="slick-next slick-arrow flex-center" type="button"><svg class="svg-icon icon-arr_right"><use xlink:href="/static/new-design/img/symbol_sprite.svg#icon-arr_right"></use></svg></button>',
+                            arrows: true,
+                            dots: true,
+                            fade: true,
+                            appendDots: $(el).closest('.slick-popup-wrap'),
+                            customPaging: function (slider, i) {
+                                return '<button class="tab"><img loading="lazy" src="' + $(el).find('.img-cont:eq(' + (i) + ') .img-marker').attr('data-lazy') + '?resize=72" class="fit-cover" alt=""></button>'
+                            },
+                            responsive: [
+                                {
+                                    breakpoint: 768,
+                                    settings: {
+                                        arrows: false
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                });
+
+                $('.card-image').on('click', function (e) {
+                    if (!$(this).hasClass('no-img')) {
+                        let slick_wrap = $(this).next('.slick-popup-wrap');
+                        temp_id = slick_wrap.attr('id');
+                        slick_wrap.children('.slick-dots').addClass('mod');
+                        slick_wrap.children('.slick-popup').appendTo('#imgs-modal .content-inner');
+                        open_modal($(this));
+                        e.preventDefault()
+                        $('#imgs-modal .make-order-btn').attr('href', '#')
+                    }
+                    else { e.preventDefault() }
+                });
+
+                $('button.show_card').on('click', function () {
+                    a = window.location.host.split('.')
+                    if(a.length > 2){
+                        link = link = a[1]+'.'+a[2]
+                    } else {
+                        link = window.location.host
+                    }
+                    window.open('https://' + $(this).attr('data-id') + '.' + link, '_blank').focus()
+                })
+                $('a.send_message').on('click', function () {
+                    window.open('https://wa.me/' + $(this).attr('data-phone'))
+                })
+                $('a.make_call').on('click', function () {
+                    window.open('tel:' + $(this).attr('data-phone'))
+                })
+
+            },
+        },
+        delimiters: ['[[', ']]']
+    });
+
+}
+window.addEventListener("load", function () {
+    AppAJAXList();
+});

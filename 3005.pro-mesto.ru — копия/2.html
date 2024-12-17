@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            body {
+                overflow: auto;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.8);
+                z-index: 999;
+            }
+
+            .modal:target {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                overflow-y: auto;
+            }
+
+            .modal:target ~ html {
+                overflow: hidden;
+            }
+
+            .modal:target ~ body {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+            }
+
+            .modal-content {
+                position: relative;
+                max-width: 90%;
+                margin: 20px;
+                background: #fff;
+            }
+
+            .modal-main-image {
+                max-width: 100%;
+                max-height: 70vh;
+                margin-bottom: 20px;
+            }
+
+            .thumbnails {
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.5);
+                border-radius: 5px;
+            }
+
+            .thumbnails img {
+                width: 80px;
+                height: 80px;
+                object-fit: cover;
+                cursor: pointer;
+                border: 2px solid transparent;
+                transition: border-color 0.3s;
+            }
+
+            .thumbnails img:hover {
+                border-color: white;
+            }
+
+            .modal .close {
+                position: absolute;
+                top: -40px;
+                right: 0;
+                color: white;
+                font-size: 30px;
+                text-decoration: none;
+            }
+
+            .modal input[type='radio'] {
+                display: none;
+            }
+
+            .modal input[type='radio']:checked + label img {
+                border-color: white;
+            }
+
+            #img1:checked ~ img.modal-main-image {
+                content: url('https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6');
+            }
+
+            #img2:checked ~ img.modal-main-image {
+                content: url('https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1');
+            }
+
+            #img3:checked ~ img.modal-main-image {
+                content: url('https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117');
+            }
+
+            #img4:checked ~ img.modal-main-image {
+                content: url('https://ia.wampi.ru/2020/11/13/004.jpg');
+            }
+        </style>
+
+        <div class="image-container">
+            <a href="#modal-1">
+                <img
+                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                    alt="Изображение 1"
+                />
+            </a>
+        </div>
+        <div class="col-12 col-md-10">
+            <div class="main-image">
+                <div class="slider">
+                    <div class="slides">
+                        <input type="radio" name="r" id="r1" checked />
+                        <input type="radio" name="r" id="r2" />
+                        <input type="radio" name="r" id="r3" />
+                        <input type="radio" name="r" id="r4" />
+                        <input type="radio" name="r" id="r5" />
+                        <input type="radio" name="r" id="r6" />
+                        <input type="radio" name="r" id="r7" />
+                        <input type="radio" name="r" id="r8" />
+
+                        <div class="slide s1">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <a href="#modal-1">
+                                    <img
+                                        src="https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1"
+                                        alt=""
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/2c0c126f-d286-472a-9dcc-c1117c1d3198"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/2c0c126f-d286-472a-9dcc-c1117c1d3198"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                        <div class="slide">
+                            <div class="slide-background">
+                                <img
+                                    src="https://ia.wampi.ru/2020/11/13/004.jpg"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="slide-foreground">
+                                <img
+                                    src="https://ia.wampi.ru/2020/11/13/004.jpg"
+                                    alt=""
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно -->
+        <div class="modal" id="modal-1">
+            <div class="modal-content">
+                <a href="#" class="close">&times;</a>
+
+                <!-- Радио кнопки -->
+                <input type="radio" name="gallery" id="img1" checked />
+                <input type="radio" name="gallery" id="img2" />
+                <input type="radio" name="gallery" id="img3" />
+                <input type="radio" name="gallery" id="img4" />
+
+                <!-- Главное изображение -->
+                <img
+                    class="modal-main-image"
+                    src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                    alt="Главное изображение"
+                />
+
+                <!-- Миниатюры -->
+                <div class="thumbnails">
+                    <label for="img1">
+                        <img
+                            src="https://pro-mesto.ru/api/get-pic/f73e9eb9-15b4-4d9b-9a4d-8c41dc90afc6"
+                            alt="Миниатюра 1"
+                        />
+                    </label>
+
+                    <label for="img2">
+                        <img
+                            src="https://pro-mesto.ru/api/get-pic/f52fbd90-57d5-44fe-97ae-836c23b17bc1"
+                            alt="Миниатюра 2"
+                        />
+                    </label>
+
+                    <label for="img3">
+                        <img
+                            src="https://pro-mesto.ru/api/get-pic/5a2b4dac-1b39-4666-be6a-5536cd4d5117"
+                            alt="Миниатюра 3"
+                        />
+                    </label>
+
+                    <label for="img4">
+                        <img
+                            src="https://ia.wampi.ru/2020/11/13/004.jpg"
+                            alt="Миниатюра 4"
+                        />
+                    </label>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

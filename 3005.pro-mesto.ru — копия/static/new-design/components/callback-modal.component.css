@@ -1,0 +1,119 @@
+.callback-modal {
+    max-width: calc(100% - 32px);
+    background-color: #fff;
+    padding: 60px 20px 40px;
+    border-radius: 30px;
+}
+
+.callback-modal p.text-center {
+    font-size: 3rem;
+}
+
+.callback-modal p.text-help {
+    font-size: 1.5rem;
+    text-align: justify;
+}
+
+.callback-modal p.text-success {
+    text-align: -webkit-center;
+    font-size: 2rem;
+    color: #5b824b;
+    font-weight: bold;
+    margin-top: 2rem;
+    display: none;
+}
+
+.callback-modal p.text-error {
+    text-align: -webkit-center;
+    font-size: 2rem;
+    color: #cc4242;
+    font-weight: bold;
+    margin-top: 2rem;
+    display: none;
+}
+.callback-modal p.text-error retry {
+    color: #5b824b;
+    cursor: pointer;
+}
+
+.callback-modal p span {
+    font-weight: bold;
+}
+
+@media (min-width: 480px) {
+    .callback-modal {
+        max-width: 480px;
+        padding: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    .callback-modal {
+        max-width: 480px;
+        padding: 40px;
+    }
+}
+
+@media (min-width: 960px) {
+    .callback-modal {
+        max-width: 550px;
+        padding: 40px;
+    }
+}
+
+.callback-modal .close-modal {
+    top: 25px;
+    right: 25px;
+}
+
+@media (min-width: 480px) {
+    .callback-modal .close-modal {
+        top: 40px;
+        right: 40px;
+    }
+}
+
+.callback-modal .close-modal .svg-icon {
+    fill: #1d1d1d;
+}
+
+.callback-modal h2 {
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .callback-modal h2 {
+        margin-bottom: 40px;
+    }
+}
+
+.callback-modal .enter-line {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+@media (min-width: 480px) {
+    .callback-modal .enter-line {
+        font-size: 18px;
+        margin-top: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    .callback-modal .enter-line {
+        font-size: 20px;
+    }
+}
+
+.callback-modal .enter-line a {
+    color: #5b8249;
+    text-decoration: underline;
+    -webkit-transition: 0.2s;
+    transition: 0.2s;
+}
+
+.callback-modal .enter-line a:hover {
+    color: #6da833;
+}
+

@@ -1,0 +1,82 @@
+/* static/css/styles.css */
+.slides {
+    display: flex;
+    height: 100%;
+    width: calc(var(--slide-width) * var(--total-slides));
+    transition: margin-left 0.6s ease;
+}
+
+.slide {
+    width: var(--slide-width);
+    height: 600px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Динамическое смещение слайдов */
+{% for i in range(1, images|length + 1) %}
+#r{{ i }}:checked ~ .slides {
+    margin-left: calc(-1 * ({{ i|add:"-1" }} * var(--slide-width)));
+}
+{% endfor %}
+
+
+
+
+   <!-- templates/gallery.html -->
+   <!DOCTYPE html>
+   <html lang="ru">
+   <head>
+       <meta charset="UTF-8">
+       <title>Галерея</title>
+       <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+       <style>
+           :root {
+               --slide-width: 600px; /* Ширина одного слайда */
+               --total-slides: {{ images|length }}; /* Общее количество слайдов */
+           }
+       </style>
+   </head>
+   <body>
+       <div class="image-gallery">
+           <div class="thumbnails-wrap">
+               <div class="thumbnails">
+                   {% for image in images %}
+                   <label class="thumb" for="r{{ forloop.counter }}">
+                       <img src="{{ image.image_url }}" alt="{{ image.title }}">
+                   </label>
+                   {% endfor %}
+               </div>
+           </div>
+           <div class="main-image">
+               <div class="slider">
+                   <div class="slides">
+                       {% for image in images %}
+                       <input type="radio" name="r" id="r{{ forloop.counter }}" {% if forloop.first %}checked{% endif %}>
+                       <div class="slide s{{ forloop.counter }}">
+                           <div class="slide-background">
+                               <img src="{{ image.image_url }}" alt="{{ image.title }}">
+                           </div>
+                           <div class="slide-foreground">
+                               <a href="#modal-{{ forloop.counter }}">
+                                   <img src="{{ image.image_url }}" alt="{{ image.title }}">
+                               </a>
+                           </div>
+                       </div>
+                       {% endfor %}
+                   </div>
+               </div>
+           </div>
+       </div>
+
+       {% for image in images %}
+       <div class="modal" id="modal-{{ forloop.counter }}">
+           <div class="modal-content">
+               <a href="#" class="close">&times;</a>
+               <img class="modal-main-image" src="{{ image.image_url }}" alt="{{ image.title }}">
+           </div>
+       </div>
+       {% endfor %}
+   </body>
+   </html>

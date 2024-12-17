@@ -1,0 +1,63 @@
+$(document).ready(function () {
+
+    // slick
+    let prod_slider = $('.prod-slider'), prod_thumbs_slider = $('.prod-thumbs-slider');
+    if (prod_slider.length) {
+        prod_slider.slick({
+            arrows: false,
+            infinite: false,
+            asNavFor: prod_thumbs_slider
+        })
+    }
+    if (prod_thumbs_slider.length) {
+        prod_thumbs_slider.slick({
+            appendArrows: $('.prod-thumbs-slider-wr'),
+            prevArrow: '<button class="slick-prev slick-arrow flex-center" type="button"><svg class="svg-icon icon-arr_down2"><use xlink:href="/static/new-design/img/symbol_sprite.svg#icon-arr_down2"></use></svg></button>',
+            nextArrow: '<button class="slick-next slick-arrow flex-center" type="button"><svg class="svg-icon icon-arr_down2"><use xlink:href="/static/new-design/img/symbol_sprite.svg#icon-arr_down2"></use></svg></button>',
+            vertical: true,
+            verticalSwiping: true,
+            infinite: false,
+            focusOnSelect: true,
+            slidesToShow: 3,
+            asNavFor: prod_slider,
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        vertical: false,
+                        verticalSwiping: false,
+                        slidesToShow: 2
+                    }
+                }
+            ]
+        })
+    }
+
+    ymaps.ready(init);
+
+    function init() {
+        let myMap;
+        let coords = $('#map').attr('data-point').split(',');
+        console.log(coords)
+        myMap = new ymaps.Map('map', {
+            center: coords,
+            zoom: 13,
+            controls: ['zoomControl']
+        });
+
+        myMap.behaviors.disable('scrollZoom');
+
+        let myPlacemark = new ymaps.Placemark(coords,
+            {},
+            {
+                iconLayout: 'default#image',
+                iconImageHref: '/static/new-design/img/mark.png',
+                iconImageSize: [54, 63],
+                iconImageOffset: [-27, -63]
+            }
+        );
+
+        myMap.geoObjects.add(myPlacemark);
+
+    }
+})
