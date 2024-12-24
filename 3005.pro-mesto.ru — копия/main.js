@@ -193,9 +193,8 @@ let slider = document.querySelector('.mobile-slider'),
             sliderTrack.style.transition = ''
 
             document.addEventListener('touchmove', swipeAction)
-            document.addEventListener('mousemove', swipeAction)
+
             document.addEventListener('touchend', swipeEnd)
-            document.addEventListener('mouseup', swipeEnd)
 
             sliderList.classList.remove('grab')
             sliderList.classList.add('grabbing')
@@ -262,9 +261,10 @@ let slider = document.querySelector('.mobile-slider'),
         isSwipe = false
 
         document.removeEventListener('touchmove', swipeAction)
-        document.removeEventListener('mousemove', swipeAction)
+        
+    
         document.removeEventListener('touchend', swipeEnd)
-        document.removeEventListener('mouseup', swipeEnd)
+    
 
         sliderList.classList.add('grab')
         sliderList.classList.remove('grabbing')
