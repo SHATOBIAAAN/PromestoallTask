@@ -1,0 +1,131 @@
+
+    .mobile-slider {
+        position: relative;
+        height: 300px;
+        margin: 50px auto 0;
+        user-select: none;
+        touch-action: pan-y;
+    }
+
+    .mobile-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .mobile-slider-list {
+        width: 400px;
+        height: 300px;
+        overflow: hidden;
+    }
+
+    .mobile-slider-list.grab {
+        cursor: grab;
+    }
+
+    .mobile-slider-list.grabbing {
+        cursor: grabbing;
+    }
+
+    .mobile-slider-track {
+        display: flex;
+    }
+    .mobile-slider {
+        position: relative;
+        overflow: hidden;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-slide {
+        width: 400px;
+        height: 300px;
+        flex-shrink: 0;
+        font-size: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+    }
+
+    .mobile-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background-color: black;
+    }
+
+    .mobile-modal-content {
+        margin: auto;
+        display: block;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        object-fit: contain;
+        background-color: black;
+    }
+
+    .mobile-close {
+        z-index: 10000;
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #fff;
+        font-size: 50px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .mobile-close:hover,
+    .mobile-close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .mobile-modal-header {
+        z-index: 1000;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 40px;
+    }
+
+    .mobile-modal-content-wrapper {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .mobile-modal-content-track {
+        display: flex;
+        transition: transform 0.5s;
+        width: 100%;
+        height: 100%;
+    }
+
+    .mobile-modal-content-track .mobile-slide {
+        width: 100%;
+        height: 100%;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-modal-content-track img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
