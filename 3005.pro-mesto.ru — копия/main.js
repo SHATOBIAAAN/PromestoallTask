@@ -142,173 +142,231 @@ document.querySelectorAll('.slide-foreground').forEach(foreground => {
 
 // slider in mobile
 
-let slider = document.querySelector('.mobile-slider'),
-    sliderList = slider.querySelector('.mobile-slider-list'),
-    sliderTrack = slider.querySelector('.slider-track'),
-    slides = slider.querySelectorAll('.slide'),
-    slideWidth = slides[0].offsetWidth,
-    slideIndex = 0,
-    posInit = 0,
-    posX1 = 0,
-    posX2 = 0,
-    posY1 = 0,
-    posY2 = 0,
-    posFinal = 0,
-    isSwipe = false,
-    isScroll = false,
-    allowSwipe = true,
-    transition = true,
-    nextTrf = 0,
-    prevTrf = 0,
-    lastTrf = --slides.length * slideWidth,
-    posThreshold = slides[0].offsetWidth * 0.35,
-    trfRegExp = /([-0-9.]+(?=px))/,
-    swipeStartTime,
-    swipeEndTime,
-    getEvent = function () {
-        return event.type.search('touch') !== -1 ? event.touches[0] : event
-    },
-    slide = function () {
-        if (transition) {
-            sliderTrack.style.transition = 'transform .5s'
-        }
-        sliderTrack.style.transform = `translate3d(-${
-            slideIndex * slideWidth
-        }px, 0px, 0px)`
-    },
-    swipeStart = function () {
-        let evt = getEvent()
+let mobileSlider = document.querySelector('.mobile-slider')
+let mobileSliderList = mobileSlider.querySelector('.mobile-slider-list')
+let mobileSliderTrack = mobileSlider.querySelector('.mobile-slider-track')
+let mobileSlides = mobileSlider.querySelectorAll('.mobile-slide')
+let mobileSlideWidth = mobileSlides[0].offsetWidth
+let mobileSlideIndex = 0
+let posInit = 0
+let posX1 = 0
+let posX2 = 0
+let posY1 = 0
+let posY2 = 0
+let posFinal = 0
+let isSwipe = false
+let isScroll = false
+let allowSwipe = true
+let transition = true
+let nextTrf = 0
+let prevTrf = 0
+let lastTrf = -((mobileSlides.length - 1) * mobileSlideWidth)
+let posThreshold = mobileSlideWidth * 0.35
+let trfRegExp = /([-0-9.]+(?=px))/
+let swipeStartTime
+let swipeEndTime
 
-        if (allowSwipe) {
-            swipeStartTime = Date.now()
+const getEvent = event =>
+    event.type.includes('touch') ? event.touches[0] : event
 
-            transition = true
+const mobileSlide = () => {
+    if (transition) {
+        mobileSliderTrack.style.transition = 'transform 0.5s'
+    }
+    mobileSliderTrack.style.transform = `translate3d(-${
+        mobileSlideIndex * mobileSlideWidth
+    }px, 0px, 0px)`
+}
 
-            nextTrf = (slideIndex + 1) * -slideWidth
-            prevTrf = (slideIndex - 1) * -slideWidth
-
-            posInit = posX1 = evt.clientX
-            posY1 = evt.clientY
-
-            sliderTrack.style.transition = ''
-
-            document.addEventListener('touchmove', swipeAction)
-
-            document.addEventListener('touchend', swipeEnd)
-
-            sliderList.classList.remove('grab')
-            sliderList.classList.add('grabbing')
-        }
-    },
-    swipeAction = function () {
-        let evt = getEvent(),
-            style = sliderTrack.style.transform,
-            transform = +style.match(trfRegExp)[0]
-
-        posX2 = posX1 - evt.clientX
-        posX1 = evt.clientX
-
-        posY2 = posY1 - evt.clientY
+const mobileSwipeStart = event => {
+    let evt = getEvent(event)
+    if (allowSwipe) {
+        swipeStartTime = Date.now()
+        transition = true
+        nextTrf = (mobileSlideIndex + 1) * -mobileSlideWidth
+        prevTrf = (mobileSlideIndex - 1) * -mobileSlideWidth
+        posInit = posX1 = evt.clientX
         posY1 = evt.clientY
+        mobileSliderTrack.style.transition = 'none'
+        document.addEventListener('touchmove', mobileSwipeAction)
+        document.addEventListener('touchend', mobileSwipeEnd)
+        mobileSliderList.classList.remove('grab')
+        mobileSliderList.classList.add('grabbing')
+    }
+}
 
-        if (!isSwipe && !isScroll) {
-            let posY = Math.abs(posY2)
-            if (posY > 7 || posX2 === 0) {
-                isScroll = true
-                allowSwipe = false
-            } else if (posY < 7) {
-                isSwipe = true
-            }
+const mobileSwipeAction = event => {
+    let evt = getEvent(event),
+        style = mobileSliderTrack.style.transform,
+        transformMatch = style.match(trfRegExp)
+
+    if (!transformMatch) return
+    let transform = parseInt(transformMatch[0])
+
+    posX2 = posX1 - evt.clientX
+    posX1 = evt.clientX
+    posY2 = posY1 - evt.clientY
+    posY1 = evt.clientY
+
+    if (!isSwipe && !isScroll) {
+        let posY = Math.abs(posY2)
+        if (posY > 7 || posX2 === 0) {
+            isScroll = true
+            allowSwipe = false
+        } else if (posY < 7) {
+            isSwipe = true
         }
+    }
 
-        if (isSwipe) {
-            if (slideIndex === 0) {
-                if (posInit < posX1) {
-                    setTransform(transform, 0)
-                    return
-                } else {
-                    allowSwipe = true
-                }
-            }
-
-            // запрет ухода вправо на последнем слайде
-            if (slideIndex === --slides.length) {
-                if (posInit > posX1) {
-                    setTransform(transform, lastTrf)
-                    return
-                } else {
-                    allowSwipe = true
-                }
-            }
-
-            if (
-                (posInit > posX1 && transform < nextTrf) ||
-                (posInit < posX1 && transform > prevTrf)
-            ) {
-                reachEdge()
-                return
-            }
-
-            sliderTrack.style.transform = `translate3d(${
-                transform - posX2
-            }px, 0px, 0px)`
+    if (isSwipe) {
+        if (mobileSlideIndex === 0 && posInit < posX1) {
+            setTransform(transform, 0)
+            return
         }
-    },
-    swipeEnd = function () {
-        posFinal = posInit - posX1
+        if (mobileSlideIndex === mobileSlides.length - 1 && posInit > posX1) {
+            setTransform(transform, lastTrf)
+            return
+        }
+        if (
+            (posInit > posX1 && transform < nextTrf) ||
+            (posInit < posX1 && transform > prevTrf)
+        ) {
+            reachEdge()
+            return
+        }
+        mobileSliderTrack.style.transform = `translate3d(${
+            transform - posX2
+        }px, 0px, 0px)`
+    }
+}
 
-        isScroll = false
-        isSwipe = false
+const mobileSwipeEnd = () => {
+    posFinal = posInit - posX1
+    isScroll = false
+    isSwipe = false
+    document.removeEventListener('touchmove', mobileSwipeAction)
+    document.removeEventListener('touchend', mobileSwipeEnd)
+    mobileSliderList.classList.add('grab')
+    mobileSliderList.classList.remove('grabbing')
 
-        document.removeEventListener('touchmove', swipeAction)
-        
-    
-        document.removeEventListener('touchend', swipeEnd)
-    
-
-        sliderList.classList.add('grab')
-        sliderList.classList.remove('grabbing')
-
-        if (allowSwipe) {
-            swipeEndTime = Date.now()
-            if (
-                Math.abs(posFinal) > posThreshold ||
-                swipeEndTime - swipeStartTime < 300
-            ) {
-                if (posInit < posX1) {
-                    slideIndex--
-                } else if (posInit > posX1) {
-                    slideIndex++
-                }
-            }
-
-            if (posInit !== posX1) {
-                allowSwipe = false
-                slide()
-            } else {
-                allowSwipe = true
-            }
+    if (allowSwipe) {
+        swipeEndTime = Date.now()
+        if (
+            Math.abs(posFinal) > posThreshold ||
+            swipeEndTime - swipeStartTime < 300
+        ) {
+            mobileSlideIndex += posInit < posX1 ? -1 : 1
+            mobileSlideIndex = Math.max(
+                0,
+                Math.min(mobileSlideIndex, mobileSlides.length - 1),
+            )
+        }
+        if (posInit !== posX1) {
+            allowSwipe = false
+            mobileSlide()
         } else {
             allowSwipe = true
         }
-    },
-    setTransform = function (transform, comapreTransform) {
-        if (transform >= comapreTransform) {
-            if (transform > comapreTransform) {
-                sliderTrack.style.transform = `translate3d(${comapreTransform}px, 0px, 0px)`
-            }
-        }
-        allowSwipe = false
-    },
-    reachEdge = function () {
-        transition = false
-        swipeEnd()
+    } else {
         allowSwipe = true
     }
+}
 
-sliderTrack.style.transform = 'translate3d(0px, 0px, 0px)'
-sliderList.classList.add('grab')
+const setTransform = (transform, compareTransform) => {
+    if (transform > compareTransform) {
+        mobileSliderTrack.style.transform = `translate3d(${compareTransform}px, 0px, 0px)`
+    }
+    allowSwipe = false
+}
 
-sliderTrack.addEventListener('transitionend', () => (allowSwipe = true))
-slider.addEventListener('touchstart', swipeStart)
-slider.addEventListener('mousedown', swipeStart)
+const reachEdge = () => {
+    transition = false
+    mobileSwipeEnd()
+    allowSwipe = true
+}
+
+mobileSliderTrack.style.transform = 'translate3d(0px, 0px, 0px)'
+mobileSliderList.classList.add('grab')
+mobileSliderTrack.addEventListener('transitionend', () => (allowSwipe = true))
+mobileSlider.addEventListener('touchstart', mobileSwipeStart)
+mobileSlider.addEventListener('mousedown', mobileSwipeStart)
+
+let desktopModal = document.getElementById('modal')
+let mobileCloseModal = document.querySelector('.mobile-close')
+let modalHeader = document.getElementById('modalHeader')
+let mobileCurrentIndex = 0
+let modalContentTrack = document.querySelector('.mobile-modal-content-track')
+
+mobileSlides.forEach((slide, index) => {
+    slide.addEventListener('click', function () {
+        desktopModal.style.display = 'block'
+        mobileCurrentIndex = index
+        updateModalImage()
+        document.body.style.overflow = 'hidden'
+    })
+    let slideClone = slide.cloneNode(true)
+    modalContentTrack.appendChild(slideClone)
+})
+
+mobileCloseModal.addEventListener('click', function () {
+    desktopModal.style.display = 'none'
+    mobileSlideIndex = mobileCurrentIndex
+    mobileSlide()
+    document.body.style.overflow = ''
+})
+
+window.addEventListener('click', function (event) {
+    if (event.target === desktopModal) {
+        desktopModal.style.display = 'none'
+        mobileSlideIndex = mobileCurrentIndex
+        mobileSlide()
+        document.body.style.overflow = ''
+    }
+})
+
+function updateModalImage() {
+    modalContentTrack.style.transform = `translateX(-${
+        mobileCurrentIndex * 100
+    }%)`
+    modalHeader.textContent = `${mobileCurrentIndex + 1} из ${
+        mobileSlides.length
+    }`
+}
+
+let startX = 0
+let endX = 0
+const swipeThresholdPercentage = 0.25 // 25% от ширины модального окна
+
+desktopModal.addEventListener('touchstart', function (event) {
+    startX = event.touches[0].clientX
+})
+
+desktopModal.addEventListener('touchmove', function (event) {
+    let touch = event.touches[0]
+    let moveX = touch.clientX - startX
+    modalContentTrack.style.transform = `translateX(calc(-${
+        mobileCurrentIndex * 100
+    }% + ${moveX}px))`
+})
+
+desktopModal.addEventListener('touchend', function (event) {
+    endX = event.changedTouches[0].clientX
+    handleSwipe()
+    modalContentTrack.style.transform = `translateX(-${
+        mobileCurrentIndex * 100
+    }%)`
+})
+
+function handleSwipe() {
+    const modalWidth = desktopModal.offsetWidth
+    const swipeThreshold = modalWidth * swipeThresholdPercentage
+
+    if (Math.abs(startX - endX) > swipeThreshold) {
+        if (startX > endX && mobileCurrentIndex < mobileSlides.length - 1) {
+            mobileCurrentIndex++
+        } else if (startX < endX && mobileCurrentIndex > 0) {
+            mobileCurrentIndex--
+        }
+    }
+    updateModalImage()
+}

@@ -17925,9 +17925,9 @@ input.field.error {
 
 
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
     .mobile-slider{
-        display: none
+        display: none!important;
     }
     .gallery-row {
         display: flex;
@@ -17937,8 +17937,6 @@ input.field.error {
     .image-gallery {
         padding-top: 20px;
     }
-
-
     .thumb1 {
         width: calc(100% / 6 - 5px);
         height: 100px;
@@ -17949,7 +17947,6 @@ input.field.error {
         align-items: center;
         justify-content: center;
     }
-
     label.thumb1 {
         width: calc(100% / 6 - 5px);
         height: 100px;
@@ -17957,7 +17954,6 @@ input.field.error {
         align-items: center;
         justify-content: center;
     }
-
     .thumb1:focus {
         opacity: 1;
     }
@@ -17975,18 +17971,14 @@ input.field.error {
     .thumb1:hover {
         opacity: 1;
     }
-
     .thumb1 img {
-        
         width: 100px;
         height: 100%;
         object-fit: cover;
     }
-
     .main-image {
         flex-grow: 1;
     }
-
     .slider {
         width: 100%;
         height: 500px;
@@ -17994,65 +17986,52 @@ input.field.error {
         overflow: hidden;
         border-radius: 8px;
     }
-
     .slides {
         width: 400%;
         height: 100%;
         display: flex;
     }
-
     .slide {
         cursor: pointer;
         width: 25%;
         transition: all 0.6s ease;
     }
-
     .img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     input[name='r'] {
         position: absolute;
         visibility: hidden;
     }
-
     #r1:checked ~ .s1 {
         margin-left: 0;
     }
-
     #r2:checked ~ .s1 {
-        margin-left: -650px;
+        margin-left: -700px;
     }
-
     #r3:checked ~ .s1 {
-        margin-left: -1300px;
+        margin-left: -1400px;
     }
-
     #r4:checked ~ .s1 {
-        margin-left: -1950px;
+        margin-left: -2100px;
     }
-
     #r5:checked ~ .s1 {
-        margin-left: -2600px;
+        margin-left: -2800px;
     }
-
     #r6:checked ~ .s1 {
-        margin-left: -3250px;
+        margin-left: -3500px;
     }
-
     #r7:checked ~ .s1 {
-        margin-left: -3900px;
+        margin-left: -4200px;
     }
-
     #r8:checked ~ .s1 {
-        margin-left: -4550px;
+        margin-left: -4900px;
     }
     #r9:checked ~ .s1 {
-        margin-left: -5200px;
+        margin-left: -5600px;
     }
-
     .photo-arrow {
         position: absolute;
         top: 50%;
@@ -18068,19 +18047,15 @@ input.field.error {
         align-items: center;
         justify-content: center; 
     }
-
     .left-arrow {
         left: 0; 
     }
-
     .right-arrow {
         right: 0; 
     }
-
     .photo-arrow:hover {
         background-color: rgba(0, 0, 0, 0.5); 
     }
-
     .image-gallery-modal {
         display: flex;
         position: fixed;
@@ -18092,35 +18067,29 @@ input.field.error {
         scrollbar-width: thin; 
         scrollbar-color: #888 #e0e0e0; 
     }
-
     .gallery-row-modal {
         padding-right: 20px;
         display: flex;
         flex-direction: column; 
     }
-
     .thumbnail-wrapper {
         padding: 5px;
     }
-
     .thumbnail {
         cursor: pointer;
         height: 100px;
         display: flex;
         align-items: center;
     }
-
     .thumbnail img {
         opacity: 0.7;
         width: 100px;
         height: 100%;
         object-fit: cover; 
     }
-
     .thumbnail img:hover {
         border: 2px solid #007bff; 
     }
-
     .modal {
         display: none; 
         position: fixed;
@@ -18144,19 +18113,16 @@ input.field.error {
         margin-left: 300px;
         overflow: hidden;
     }
-
     .modal-main-image {
         max-width: 100%; 
         max-height: 100%; 
     }
-
     .thumbnails-wrap {
         display: flex;
         flex-direction: column;
         gap: 102px;
         max-height: 600px;
     }
-
     .thumbnails {
         transform: scaleX(-1);
         display: flex;
@@ -18164,7 +18130,6 @@ input.field.error {
         gap: 10px;
         width: 100px;
     }
-
     .main-image {
         position: relative;
         flex-grow: 1;
@@ -18176,7 +18141,6 @@ input.field.error {
         overflow: hidden;
         border-radius: 8px;
     }
-
     .main-image::before {
         content: '';
         position: absolute;
@@ -18188,18 +18152,15 @@ input.field.error {
         backdrop-filter: blur(8px);
         z-index: 1;
     }
-
     .slide-foreground {
         position: relative;
         z-index: 2;
     }
-
     .slide-foreground img {
         width: 100%;
         height: auto;
         object-fit: cover;
     }
-
     .slider {
         width: 100%;
         height: 600px;
@@ -18207,22 +18168,19 @@ input.field.error {
         overflow: hidden;
         border-radius: 8px;
     }
-
     .slides {
         display: flex;
         height: 100%;
         width: fit-content;
     }
-
     .slide {
-        width: 650px;
+        width: 700px;
         height: 600px;
         flex-shrink: 0;
         transition: all 0.6s ease;
         position: relative;
         overflow: hidden;
     }
-
     .slide-background {
         position: absolute;
         top: -5%;
@@ -18230,13 +18188,11 @@ input.field.error {
         width: 110%;
         height: 110%;
     }
-
     .slide-background img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-
     .slide-foreground {
         position: absolute;
         top: 50%;
@@ -18250,15 +18206,13 @@ input.field.error {
         align-items: center;
         justify-content: center;
     }
-
     .slide-foreground img {
         width: 100%;
         height: auto;
         object-fit: cover;
     }
 }
-
-@media (max-width: 1023px) {
+@media (max-width: 768px) {
     .main-image,
     .gallery-row {
         display: none;
@@ -18313,12 +18267,155 @@ input.field.error {
     
     }
 }
-
-
-@media (max-width: 700px) {
-    .slider {
-        height: 300px;
-     
-    }
-    
+ 
+.mobile-slider {
+                                            
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin: 50px auto 0;
+    user-select: none;
+    touch-action: pan-y;
 }
+
+.mobile-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mobile-slider-list {
+    width: 400px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.mobile-slider-list.grab {
+    cursor: grab;
+}
+
+.mobile-slider-list.grabbing {
+    cursor: grabbing;
+}
+
+.mobile-slider-track {
+    display: flex;
+}
+.mobile-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mobile-slide {
+    width: 400px;
+    height: 300px;
+    flex-shrink: 0;
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.mobile-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.mobile-modal-content {
+    margin: auto;
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: contain;
+    background-color: black;
+}
+
+.mobile-close {
+    z-index: 10000;
+    position: absolute;
+    top: 2.5px;
+    right: 35px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.mobile-close:hover,
+.mobile-close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.mobile-modal-header {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 40px;
+}
+
+.mobile-modal-content-wrapper {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.mobile-modal-content-track {
+    display: flex;
+    transition: transform 0.5s;
+    width: 100%;
+    height: 100%;
+}
+
+.mobile-modal-content-track .mobile-slide {
+    width: 100%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-modal-content-track img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Стили для кнопки "Показать телефон" */
+.show-phone-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #5b8249;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.show-phone-btn:hover {
+    background-color: #6da833;
+}
+
+

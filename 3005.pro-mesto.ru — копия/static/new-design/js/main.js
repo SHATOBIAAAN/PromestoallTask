@@ -119,6 +119,7 @@ item_heading.on('click', function () {
 let modals_close = $('.modals-bg, .close-modal'),
     temp_id
 function open_modal(target) {
+    $('body').addClass('oh')
     let obj = $(target.attr('data-target')),
         obj_h = obj.outerHeight(),
         win_h = win.outerHeight()
@@ -127,7 +128,6 @@ function open_modal(target) {
     } else {
         modals_bg.fadeIn(200)
     }
-    $('body').addClass('oh')
     $(obj).addClass('active')
     if (!obj.hasClass('no-ofd') && win_h - obj_h < 100) {
         obj.addClass('ofd')
